@@ -32,5 +32,31 @@ class Conf1C():
         file.close()
 
 
+
+class Checker:
+    @staticmethod
+    def exists(path):
+        return os.path.exists(path)
+
+    @staticmethod
+    def appendIfNotContains(path, content):
+        fd = open(path, "r")
+        lines = fd.readlines()
+        contains = True
+        try:
+            lines.index(content)
+        except ValueError:
+            contains = False
+
+        if (not contains):
+            fd = open(path, "a")
+            fd.write(content)
+        fd.close()
+
 if __name__ == '__main__':
-    Conf1C()
+    path = 'C:\\Program Files (x86)\\1cv8\\conf\\conf.cfg'
+    magicalString = 'DisableUnsafeActionProtection = .*'
+    if (Checker.exists(path)):
+        Checker.appendIfNotContains(path, magicalString)
+
+#    Conf1C()
