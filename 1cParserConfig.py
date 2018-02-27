@@ -2,33 +2,31 @@ import os
 
 class Conf1C():
     def __init__(self):
+        self.pathToFilie = 'C:\\Program Files (x86)\\1cv8\\conf\\conf.cfg'
+        self.option1C = 'DisableUnsafeActionProtection = .*'
         Conf1C.check1C(self)
 
-
     def check1C(self):
-        self.pathToFilie = 'C:\\Program Files (x86)\\1cv8\\conf\\conf.cfg'
+        # Method for check if 1C installed on this PC
         check1C = os.path.exists(self.pathToFilie)
         if check1C == True:
-            print('We have a work')
             Conf1C.writeToFile(self)
         else:
-            print('On this machines not exist 1C')
+            print('On this machines not exists 1C or not default directory if not installed Ctrl+C if yes!')
+            self.pathToFilie = input("Input curret directory example(C:\\Program Files (x86)\\1cv8\\conf\\conf.cfg)-->")
+            Conf1C.writeToFile(self)
 
     def writeToFile(self):
+        # Method for chek conf.cfg file if exists option for disable protection if not then write this..
         file = open(self.pathToFilie, "r")
-        find = 'DisableUnsafeActionProtection = .*'
-        exist = 0
-        print('reading -->', file)
+        exists = False
         for f in file.readlines():
-            print(f)
-            if f == find:
-                exist = 1
+            if f == self.option1C:
+                exists = True
                 break
-            else:
-                print('we need make some changes')
-        if exist == 0:
+        if exists == False:
             file = open(self.pathToFilie, "a")
-            file.write('\nDisableUnsafeActionProtection = .*')
+            file.write('\n' + self.option1C)
         file.close()
 
 
@@ -54,9 +52,9 @@ class Checker:
         fd.close()
 
 if __name__ == '__main__':
-    path = 'C:\\Program Files (x86)\\1cv8\\conf\\conf.cfg'
-    magicalString = 'DisableUnsafeActionProtection = .*'
-    if (Checker.exists(path)):
-        Checker.appendIfNotContains(path, magicalString)
+    #path = 'C:\\Program Files (x86)\\1cv8\\conf\\conf.cfg'
+    #magicalString = 'DisableUnsafeActionProtection = .*'
+    #if (Checker.exists(path)):
+        #Checker.appendIfNotContains(path, magicalString)
 
-#    Conf1C()
+    Conf1C()
