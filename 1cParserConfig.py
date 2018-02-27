@@ -4,17 +4,17 @@ class Conf1C():
     def __init__(self):
         self.pathToFilie = 'C:\\Program Files (x86)\\1cv8\\conf\\conf.cfg'
         self.option1C = 'DisableUnsafeActionProtection = .*'
-        Conf1C.check1C(self)
+        self.check1C()
 
     def check1C(self):
         # Method for check if 1C installed on this PC
         check1C = os.path.exists(self.pathToFilie)
         if check1C == True:
-            Conf1C.writeToFile(self)
+            self.writeToFile()
         else:
             print('On this machines not exists 1C or not default directory if not installed Ctrl+C if yes!')
             self.pathToFilie = input("Input curret directory example(C:\\Program Files (x86)\\1cv8\\conf\\conf.cfg)-->")
-            Conf1C.writeToFile(self)
+            self.writeToFile()
 
     def writeToFile(self):
         # Method for chek conf.cfg file if exists option for disable protection if not then write this..
